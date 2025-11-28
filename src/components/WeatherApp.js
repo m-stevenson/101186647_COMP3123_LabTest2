@@ -55,6 +55,7 @@ export default function WeatherApp() {
       setCoords({latitude, longitude});
 
       setCity(await data.results[0].name);
+      setCityInput('');
 
       setError(null);
     } catch (err) {
@@ -62,10 +63,12 @@ export default function WeatherApp() {
     }
   };
 
-
-
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-container">
+        <div className="loading-text">Loading...</div>
+      </div>
+    );
   }
 
   if (error || !weather) {

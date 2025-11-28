@@ -183,3 +183,22 @@ body {
 .search-bar button:hover {
   background: #325dff;
 }
+
+/* Loading container */
+.loading-container {
+  display: flex;
+  max-width: 980px;
+  width: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 24px 32px rgba(0, 0, 0, 0.8);
+  background: #080808;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-text{
+  color: #ffffff;
+  font-size: 24px;
+  padding: 40px;
+}
