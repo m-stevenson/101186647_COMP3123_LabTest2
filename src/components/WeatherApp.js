@@ -6,15 +6,21 @@ import { getWeatherIcon } from '../utils/weatherIcon';
 
 export default function WeatherApp() {
   const [weather, setWeather] = useState(null);
+  const [cityInput, setCityInput] = useState('');
+  const [coords, setCoords] = useState({latitude: 43.7064, longitude: -79.3986}); // Toronto coords
+  const [city, setCity] = useState('Toronto');
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+
 
   useEffect(() => {
     const fetchWeather = async () => {
       setLoading(true);
       setError(null);
 
-      const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=43.7064&longitude=-79.3986&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,uv_index_max,weather_code&current=precipitation,rain,showers,snowfall,is_day,surface_pressure,wind_direction_10m,wind_speed_10m,temperature_2m,weather_code&timezone=America%2FNew_York`;
+      const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${coords.latitude}&longitude=${coords.longitude}&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,uv_index_max,weather_code&current=precipitation,rain,showers,snowfall,is_day,surface_pressure,wind_direction_10m,wind_speed_10m,temperature_2m,weather_code&timezone=America%2FNew_York`;
 
       try {
         const response = await fetch(apiUrl);
@@ -31,7 +37,32 @@ export default function WeatherApp() {
     };
 
     fetchWeather();
-  }, []);
+  }, [coords]);
+
+  const searchCity = async () => {
+    if (!cityInput.trim()) return;
+    
+    try {
+      const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityInput)}&count=1`);
+      const data = await geoResponse.json();
+
+      if (!data.results || data.results.length === 0) {
+        setError('City not found');
+        return;
+      }
+
+      const {latitude, longitude} = data.results[0];
+      setCoords({latitude, longitude});
+
+      setCity(await data.results[0].name);
+
+      setError(null);
+    } catch (err) {
+      setError('Failed to fetch city coordinates');
+    }
+  };
+
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -41,7 +72,7 @@ export default function WeatherApp() {
     return <div>Error: {error}</div>;
   }
 
-  const {current, daily, city} = weather;
+  const {current, daily} = weather;
 
   const todayDate = new Date(daily.time[0]);
   const dayName = todayDate.toLocaleDateString('en-US', { weekday: 'long' });
@@ -61,6 +92,16 @@ export default function WeatherApp() {
 
   return (
     <div className="App">
+      <div className="search-bar">
+        <input
+        type="text"
+        placeholder="Search for a city..."
+        value={cityInput}
+        onChange={(e) => setCityInput(e.target.value)}
+        />
+        <button onClick={searchCity}>Search</button>
+      </div>
+
       <div className="weather-card">
         {/* LEFT UI */}
         <div className="weather-main">
