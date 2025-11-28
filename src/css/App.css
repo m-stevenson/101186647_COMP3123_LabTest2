@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  /* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif; */
+  font-family: 'Vend Sans', sans-serif;
+  background: #161616;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-card {
+  display: flex;
+  max-width: 980px;
+  width: 100%;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 24px 32px rgba(0, 0, 0, 0.8);
+  background: #080808;
+}
+
+/* daily weather, day/date, city (right side ui) */
+.weather-main {
+  flex: 0 0 35%;
+  min-width: 260px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #ffffff;
+  background: radial-gradient(circle at 20% 0%, #9fbcff 0, transparent 50%),
+    linear-gradient(135deg, #7aa6ff, #243b63);
+}
+
+/* Day and Date */
+.day-text {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.date-text {
+  font-size: 24px;
+}
+
+/* Icons */
+.weather-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.big-weather-icon {
+  width: 100px;
+  height: 100px;
+}
+
+/* Temperature and city */
+.bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.temp-text {
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.degree {
+  font-size: 22px;
+  margin-left: 2px;
+}
+
+.city-text {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* ----------------------------------- */
+
+/* Stats and forecast (right side ui) */
+.weather-details {
+  flex: 1;
+  padding: 24px 32px;
+  background: #262626;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.stats-labels,
+.stats-values {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 16px;
+}
+
+.suntimes-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.forecast-box {
+  margin-top: 4px;
+  padding: 16px 20px;
+  border-radius: 22px;
+  background: #333333;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.forecast-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.forecast-icon-img {
+  width: 36px;
+  height: 36px;
+}
+
+.forecast-temp {
+  font-size: 12px;
+}
